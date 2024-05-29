@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoloBlogger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .notice {
+            border: 2px solid #ffcc00;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+        .notice h2 {
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            text-decoration: none;
+            color: #1a73e8;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>SoloBlogger Backend Project URLs</h1>
+    <div class="notice">
+        <h2>Notice: Use Postman for API Testing</h2>
+        <p>We highly recommend using Postman for API testing. Postman offers a user-friendly interface and powerful features to streamline the process of developing, testing, and debugging APIs.</p>
+    </div>
+    <ul>
+        <li>
+            <strong><a href="api-auth/register/" target="_blank">/api-auth/register/</a></strong>
+            <p>Please register at the link to add blogs.To register you need to provide the following :- 
+                <ol>
+                    <li>username</li>
+                    <li>email</li>
+                    <li>password</li>
+                    <li>password1</li>
+                </ol>
+                    You will get a authentication token use it for sending post request for creating a blog, updating a blog, deleting a blog and writing reviews.</p>
+        </li>
+        <li>
+            <strong><a href="api-auth/login/" target="_blank">/api-auth/login/</a></strong>
+            <p> Login at the link to add blogs.You will get a token use it for sending post request for creating a blog,updating a blog,deleting a blog and writing reviews.provide the following:-
+                <ol>
+                    <li>username</li>
+                    <li>password</li>
+                </ol>
+                 in order to receive the token.</p>
+        </li>
+
+        <li>
+            <strong><a href="api-auth/logout/" target="_blank">api-auth/logout/</a></strong>
+            <p>Logout using the token.</p>
+        </li>
+
+
+        <li>
+        
+            <strong><a href="api/create_blog/" target="_blank">api/create_blog/</a></strong>
+            <p>Only authenticated users can create a blog.Use the token received at the time of registration.</p>
+        </li>
+        <li>
+            <strong><a href="/api/update_blog/" target="_blank">/api/update_blog/id</a></strong>
+            <p>To update blog you need to pass id of the blog in Url.
+                <strong>NOTE :- The Blog Owner Can Edit His/Her Blog.</strong>
+            </p>
+        </li>
+        <li>
+            <strong><a href="api/search_blog/" target="_blank">/api/search_blog/</a></strong>
+            <p>Pass the parameter(Blog-Title) to search  the blog.</p>
+        </li>
+        <li>
+            <strong><a href="api/review/id/create/" target="_blank">api/review/id/create/</a></strong>
+            <p>Only Authenticated User Can add the review. Add the Id of blog in the url to add the review </p>
+        </li>
+        <li>
+            <strong><a href="api/review/id/list/" target="_blank">api/review/id/list/</a></strong>
+            <p> Add the Id of blog in the Url to read the reviews of the blog </p>
+        </li>
+        <li>
+            <strong><a href="api/review/id/" target="_blank">api/review/id/</a></strong>
+            <p> Add the Id of Review in the Url to Update the reviews for the blog.<strong>NOTE :- The Review Owner Can Edit His/Her Review.</strong> </p>
+        </li>
+    </ul>
+</body>
+</html>
