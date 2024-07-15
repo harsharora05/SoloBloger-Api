@@ -86,10 +86,38 @@ DATABASES = {
 '''
 
 # render-live-postgressSql
-import dj_database_url
-DATABASES ={
-    'default' : dj_database_url.parse(config('DB_URL'))
+# import dj_database_url
+# DATABASES ={
+#     'default' : dj_database_url.parse(config('DB_URL'))
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'Soloblogger',
+        'ENFORCE_SCHEMA': False,  # Set to True if you want Django to enforce schema
+        'CLIENT': {
+            'host': f"mongodb+srv://{config('USERNAME')}:{config('PASSWORD')}@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
+            'port' : 27017,
+            'username': config('USERNAME'),
+            'password': config('PASSWORD'),
+            'authSource': 'admin',  # Adjust as needed
+            'authMechanism': 'SCRAM-SHA-1',  # Adjust as needed
+        },
+    }
 }
+
+# from mongoengine import connect
+
+# connect(
+#     db='Soloblogger',
+#     username='harshofficial995',
+#     password='harshofficial995',
+#     host='mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1',
+#     authentication_source='admin',  # Adjust as needed
+#     authentication_mechanism='SCRAM-SHA-1'  # Adjust as needed
+# )
 
 
 
