@@ -98,10 +98,10 @@ DATABASES = {
         'NAME': 'Soloblogger',
         'ENFORCE_SCHEMA': False,  # Set to True if you want Django to enforce schema
         'CLIENT': {
-            'host': f"mongodb+srv://{config('USERNAME')}:{config('PASSWORD')}@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
+            'host': "mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
             'port' : 27017,
-            'username': config('USERNAME'),
-            'password': config('PASSWORD'),
+            'username': 'harshofficial995',
+            'password': 'harshofficial995',
             'authSource': 'admin',  # Adjust as needed
             'authMechanism': 'SCRAM-SHA-1',  # Adjust as needed
         },
