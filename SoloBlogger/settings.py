@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
@@ -41,6 +44,8 @@ INSTALLED_APPS = [
     'blog_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -76,14 +81,14 @@ WSGI_APPLICATION = 'SoloBlogger.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-'''
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "mydatabase",
     }
 }
-'''
+
 
 # render-live-postgressSql
 # import dj_database_url
@@ -92,21 +97,21 @@ DATABASES = {
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'Soloblogger',
-        'ENFORCE_SCHEMA': False,  # Set to True if you want Django to enforce schema
-        'CLIENT': {
-            'host': "mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
-            'port' : 27017,
-            'username': 'harshofficial995',
-            'password': 'harshofficial995',
-            'authSource': 'admin',  # Adjust as needed
-            'authMechanism': 'SCRAM-SHA-1',  # Adjust as needed
-        },
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'Soloblogger',
+#         'ENFORCE_SCHEMA': False,  # Set to True if you want Django to enforce schema
+#         'CLIENT': {
+#             'host': "mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
+#             'port' : 27017,
+#             'username': 'harshofficial995',
+#             'password': 'harshofficial995',
+#             'authSource': 'admin',  # Adjust as needed
+#             'authMechanism': 'SCRAM-SHA-1',  # Adjust as needed
+#         },
+#     }
+# }
 
 # from mongoengine import connect
 
@@ -120,8 +125,16 @@ DATABASES = {
 # )
 
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dr6wqs8r3',
+    'API_KEY': '791513713284871',
+    'API_SECRET': 'xuT0UL8LtUQNBjVXwBND_cDiad4'
+}
 
+# Set Cloudinary as the default storage for media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+MEDIA_URL = '/media/'
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
