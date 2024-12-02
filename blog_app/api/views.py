@@ -58,7 +58,6 @@ class CreateBlog (APIView):
             
 
 
-
 class UpdateBlog(generics.RetrieveUpdateDestroyAPIView):
    queryset=Blog.objects.all()
    serializer_class =BlogSerializer
@@ -69,4 +68,4 @@ class SearchBlog(generics.ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields =['title']
+    search_fields =['title','category']

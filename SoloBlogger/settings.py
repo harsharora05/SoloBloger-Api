@@ -16,6 +16,7 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'SoloBlogger.urls'
@@ -82,47 +84,21 @@ WSGI_APPLICATION = 'SoloBlogger.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
-    }
-}
-
-
-# render-live-postgressSql
-# import dj_database_url
-# DATABASES ={
-#     'default' : dj_database_url.parse(config('DB_URL'))
-# }
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'Soloblogger',
-#         'ENFORCE_SCHEMA': False,  # Set to True if you want Django to enforce schema
-#         'CLIENT': {
-#             'host': "mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
-#             'port' : 27017,
-#             'username': 'harshofficial995',
-#             'password': 'harshofficial995',
-#             'authSource': 'admin',  # Adjust as needed
-#             'authMechanism': 'SCRAM-SHA-1',  # Adjust as needed
-#         },
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "mydatabase",
 #     }
 # }
 
-# from mongoengine import connect
 
-# connect(
-#     db='Soloblogger',
-#     username='harshofficial995',
-#     password='harshofficial995',
-#     host='mongodb+srv://harshofficial995:harshofficial995@cluster1.3loc7jg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1',
-#     authentication_source='admin',  # Adjust as needed
-#     authentication_mechanism='SCRAM-SHA-1'  # Adjust as needed
-# )
+# Replace the SQLite DATABASES configuration with PostgreSQL:
+DATABASES = {
+    'default': dj_database_url.config(        
+        # Replace this value with your local database's connection string.        
+        default='postgresql://solo_blogger_database_user:nHf2T2OACvw1S353efHfqm8xS51jiS4z@dpg-ct6m2ql6l47c738ao0e0-a.oregon-postgres.render.com/solo_blogger_database',       
+        conn_max_age=600    
+        )}
 
 
 CLOUDINARY_STORAGE = {
@@ -170,6 +146,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# This production code might break development mode, so we check whether we're in DEBUG mode
+if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
