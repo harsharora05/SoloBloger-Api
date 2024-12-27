@@ -8,6 +8,7 @@ from blog_app.models import Blog,Comment
 from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated
 from blog_app.api.permissions import IsPostOwnerOrReadOnly,IsReviewOwnerOrReadOnly
 from rest_framework import filters
+from rest_framework import status
 # Create your views here.
 
 
@@ -24,6 +25,23 @@ class CreateReview(generics.CreateAPIView):
         review_user = self.request.user
         serializer.save(blog=Selectedblog,ReviewUser = review_user)
 
+class IncreaseLike(APIView):
+    def post(self,request,pk):
+        blg = Blog.objects.get(id=pk)
+        blg.likes+=1
+        blg.save()
+        return Response({"message": "Like added.", "like_count": blg.likes}, status=status.HTTP_200_OK)
+    
+
+class DecreaseLike(APIView):
+    def post(self,request,pk):
+        blg = Blog.objects.get(id=pk)
+        if(blg.likes > 0) :
+            blg.likes-=1
+            blg.save()
+            return Response({"message": "Like removed.", "like_count": blg.likes}, status=status.HTTP_200_OK)
+        else: 
+            return Response({"message": "like can't be decreased any more."},status=status.HTTP_404_NOT_FOUND)
 
 class ListReview(generics.ListAPIView):
     serializer_class = CommentSerializer
@@ -39,7 +57,7 @@ class UpdateReview(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsReviewOwnerOrReadOnly]
 
 
-class CreateBlog (APIView):
+class CreateBlog(APIView):
     permission_classes =[IsAuthenticatedOrReadOnly]
     
     def get(self,request):

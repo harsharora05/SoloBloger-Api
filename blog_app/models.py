@@ -14,7 +14,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=50 ,blank=False,null=False)
     category = models.CharField(max_length=100,blank=False,null=False,choices=categories)
     content = models.CharField(max_length=4000,blank=False,null=False)
-    likes = models.IntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
