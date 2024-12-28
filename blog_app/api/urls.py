@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path,include
 
-from blog_app.api.views import CreateBlog,UpdateBlog,CreateReview,ListReview,SearchBlog,UpdateReview,IncreaseLike,DecreaseLike
+from blog_app.api.views import CreateBlog,UpdateBlog,CreateReview,ListReview,SearchBlog,UpdateReview,IncreaseLike,DecreaseLike,PopularBlog,RecentBlog
 urlpatterns = [
 path('create_blog/', CreateBlog.as_view(), name ="create-blog"),
+path("popular_blog/",PopularBlog.as_view(),name= "popular-blog"),
+path("recent_blog/",RecentBlog.as_view(),name= "recent_blog"),
 path('increase_like/<int:pk>', IncreaseLike.as_view(), name ="increase-like"),
 path('decrease_like/<int:pk>', DecreaseLike.as_view(), name ="decrease-like"),
 path('update_blog/<int:pk>/', UpdateBlog.as_view(), name ="update-blog"),

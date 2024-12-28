@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 from blog_app.api.serializers import BlogSerializer,CommentSerializer
 from blog_app.models import Blog,Comment
 from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated
@@ -59,11 +60,6 @@ class UpdateReview(generics.RetrieveUpdateDestroyAPIView):
 
 class CreateBlog(APIView):
     permission_classes =[IsAuthenticatedOrReadOnly]
-    
-    def get(self,request):
-        data = Blog.objects.all()
-        serializer = BlogSerializer(data,many=True)
-        return Response(serializer.data)
         
     def post(self,request):
         serializer= BlogSerializer(data = request.data)
@@ -74,6 +70,20 @@ class CreateBlog(APIView):
         else :
             return Response(serializer.errors)
             
+
+
+class PopularBlog(generics.ListAPIView):
+    queryset = Blog.objects.all().order_by("-likes")[:8]
+    serializer_class = BlogSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class RecentBlog(generics.ListAPIView):
+    queryset = Blog.objects.all().order_by("-created")
+    serializer_class = BlogSerializer
+    pagination_class = PageNumberPagination
+    permission_classes =  [IsAuthenticatedOrReadOnly]
+
 
 
 class UpdateBlog(generics.RetrieveUpdateDestroyAPIView):
