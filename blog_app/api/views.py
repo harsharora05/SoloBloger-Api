@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.views import APIView
 from rest_framework import generics
-from rest_framework.pagination import PageNumberPagination
+from .pagination import CustomPagination
 from blog_app.api.serializers import BlogSerializer,CommentSerializer
 from blog_app.models import Blog,Comment
 from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated
@@ -73,15 +73,14 @@ class CreateBlog(APIView):
 
 
 class PopularBlog(generics.ListAPIView):
-    queryset = Blog.objects.all().order_by("-likes")[:8]
+    queryset = Blog.objects.all().order_by("-likes")[:10]
     serializer_class = BlogSerializer
-    pagination_class = PageNumberPagination
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class RecentBlog(generics.ListAPIView):
     queryset = Blog.objects.all().order_by("-created")
     serializer_class = BlogSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
     permission_classes =  [IsAuthenticatedOrReadOnly]
 
 
