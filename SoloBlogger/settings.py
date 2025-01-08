@@ -94,11 +94,15 @@ WSGI_APPLICATION = 'SoloBlogger.wsgi.application'
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    'default': dj_database_url.config(        
-        # Replace this value with your local database's connection string.        
-        default='postgresql://solo_blogger_database_user:nHf2T2OACvw1S353efHfqm8xS51jiS4z@dpg-ct6m2ql6l47c738ao0e0-a.oregon-postgres.render.com/solo_blogger_database',       
-        conn_max_age=600    
-        )}
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "defaultdb",
+        "USER": "avnadmin",
+        "PASSWORD": "AVNS_Z6hfYpMVe_PAh_FsYD-",
+        "HOST": "pg-24b2b5be-blogify.b.aivencloud.com",
+        "PORT": "10761",
+    }
+}
 
 
 CLOUDINARY_STORAGE = {

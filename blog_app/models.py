@@ -14,6 +14,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=50 ,blank=False,null=False)
     category = models.CharField(max_length=100,blank=False,null=False,choices=categories)
     content = models.TextField(max_length=4000,blank=False,null=False)
+    img = models.ImageField(upload_to='blog/')
     likes = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -22,17 +23,13 @@ class Blog(models.Model):
         return self.title + " | " + self.user.username
     
 
-class BlogImage(models.Model):
-    blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="Blog_Images")
-    img = models.ImageField(upload_to='blog/')
-    def __str__(self):
-        return self.blog.title
+
 
 
 class Comment(models.Model):
     ReviewUser = models.ForeignKey(User,on_delete=models.CASCADE,related_name="review_user")
     blog = models.ForeignKey(Blog,on_delete=models.CASCADE)
-    desc = models.CharField(max_length=1500)
+    desc = models.CharField(max_length=1700)
     active = models.BooleanField(default=True)
     
     def __str__(self):
