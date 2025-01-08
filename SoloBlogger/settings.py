@@ -97,8 +97,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "defaultdb",
-        "USER": "avnadmin",
-        "PASSWORD": "AVNS_Z6hfYpMVe_PAh_FsYD-",
+        "USER": config('USERNAME'),
+        "PASSWORD": config('PASSWORD'),
         "HOST": "pg-24b2b5be-blogify.b.aivencloud.com",
         "PORT": "10761",
     }
