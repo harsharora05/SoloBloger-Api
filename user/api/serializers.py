@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
         if User.objects.filter(email = self.validated_data['email']).exists():
             raise serializers.ValidationError({'message' : 'Email Already Exits'})
         
-        if User.objects.filter(email = self.validated_data['username']).exists():
+        if User.objects.filter(username = self.validated_data['username']).exists():
             raise serializers.ValidationError({'message' : 'Username Already Exits'})
 
 
