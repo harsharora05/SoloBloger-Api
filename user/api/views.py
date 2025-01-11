@@ -51,4 +51,4 @@ class Register(APIView):
             data['token'] = str(token)
         else:
             data = serializer.errors
-        return Response(data)
+        return Response(data,status=status.HTTP_401_UNAUTHORIZED)
