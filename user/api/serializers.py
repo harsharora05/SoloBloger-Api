@@ -19,8 +19,14 @@ class UserSerializer(serializers.ModelSerializer):
         if password != password2:
             raise serializers.ValidationError({'message' : 'Passwords Don\'t Match'})
         
+        if len(password) < 8:
+            raise serializers.ValidationError({'message' : 'Your Password Is Too Short'})
+        
         if User.objects.filter(email = self.validated_data['email']).exists():
             raise serializers.ValidationError({'message' : 'Email Already Exits'})
+        
+        if User.objects.filter(email = self.validated_data['username']).exists():
+            raise serializers.ValidationError({'message' : 'Username Already Exits'})
 
 
         account = User(email = self.validated_data['email'],username = self.validated_data['username'])

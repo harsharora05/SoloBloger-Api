@@ -19,8 +19,8 @@ class login(APIView):
         password = request.data.get('password')
         if not username or not password:
             return Response(
-                {"message": "Username and password are required."},
-                status=status.HTTP_400_BAD_REQUEST,
+                {"message": "Username & Password Are Required."},
+                status=status.HTTP_401_UNAUTHORIZED,
             )
 
         user = authenticate(username=username, password=password)
@@ -52,5 +52,5 @@ class Register(APIView):
             return Response(data,status=status.HTTP_200_OK)
         else:
             data = serializer.errors
-            return Response(data,status=status.HTTP_401_UNAUTHORIZED)
+            return Response(data,status=status.HTTP_400_BAD_REQUEST)
         
