@@ -95,4 +95,5 @@ class SearchBlog(generics.ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     filter_backends = [filters.SearchFilter]
+    pagination_class = CustomPagination
     search_fields =['title','category']
