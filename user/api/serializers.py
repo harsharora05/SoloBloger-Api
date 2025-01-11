@@ -17,10 +17,10 @@ class UserSerializer(serializers.ModelSerializer):
         password2 = self.validated_data['password2']
 
         if password != password2:
-            raise serializers.ValidationError({'message' : 'passwords are not same'})
+            raise serializers.ValidationError({'message' : 'Passwords Don\'t Match'})
         
         if User.objects.filter(email = self.validated_data['email']).exists():
-            raise serializers.ValidationError({'message' : 'email already exits'})
+            raise serializers.ValidationError({'message' : 'Email Already Exits'})
 
 
         account = User(email = self.validated_data['email'],username = self.validated_data['username'])

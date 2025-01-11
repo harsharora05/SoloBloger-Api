@@ -29,7 +29,7 @@ class login(APIView):
             token,created = Token.objects.get_or_create(user = user)
             return Response({"message" : "Login SuccessFull","username":username,"email":user.email,"token":token.key},status=status.HTTP_200_OK)
         else:
-            return Response({"message" : "invalid credentials"},status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message" : "Invalid Credentials"},status=status.HTTP_401_UNAUTHORIZED)
 
 
 
@@ -44,11 +44,13 @@ class Register(APIView):
         data ={}
         if serializer.is_valid():
             account = serializer.save()
-            data['message'] = 'registeration successfull',
+            data['message'] = 'Registeration Successfull',
             data['username'] = account.username
             data['email'] = account.email
             token = Token.objects.create(user = account)
             data['token'] = str(token)
+            return Response(data,status=status.HTTP_200_OK)
         else:
             data = serializer.errors
-        return Response(data,status=status.HTTP_401_UNAUTHORIZED)
+            return Response(data,status=status.HTTP_401_UNAUTHORIZED)
+        
